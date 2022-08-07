@@ -73,17 +73,17 @@ public struct FlickTypeTextEditor: View {
     }
   }
 }
-
-@available(watchOS 8.0, *)
-struct eggPreview: PreviewProvider {
-    static var previews: some View {
-        VStack {
-            FlickTypeTextField(flicktype: true, title: "Search...", text: .constant(""))
-//                .opacity(0.5)
-            FlickTypeTextField(flicktype: false, title: "Search...", text: .constant(""))
-//                .opacity(0.5)
-        }
-    }
-}
+//
+//@available(watchOS 8.0, *)
+//struct eggPreview: PreviewProvider {
+//    static var previews: some View {
+//        VStack {
+//            FlickTypeTextField(flicktype: true, title: "Search...", text: .constant(""))
+////                .opacity(0.5)
+//            FlickTypeTextField(flicktype: false, title: "Search...", text: .constant(""))
+////                .opacity(0.5)
+//        }
+//    }
+//}
 
 #endif // os(watchOS)

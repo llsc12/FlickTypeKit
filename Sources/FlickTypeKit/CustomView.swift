@@ -11,12 +11,12 @@ import SwiftUI
 @available(watchOS 8.0, *)
 public struct FlickTypeTextField: View {
     
-    private var flicktype: Bool
+    @State private var flicktype: Bool
     private var title: LocalizedStringKey
     @Binding private var text: String
     
-    public init(flicktype: Bool, title: LocalizedStringKey, text: Binding<String>) {
-        self.flicktype = flicktype
+    public init(flicktype: State<Bool>, title: LocalizedStringKey, text: Binding<String>) {
+        self._flicktype = flicktype
         self.title = title
         self._text = text
     }
@@ -33,7 +33,20 @@ public struct FlickTypeTextField: View {
 @available(watchOS 8.0, *)
 struct SwiftUIView_Previews: PreviewProvider {
     static var previews: some View {
-        FlickTypeTextField(flicktype: true, title: "Search...", text: .constant("hi there"))
+        eggView()
+    }
+}
+
+@available(watchOS 8.0, *)
+struct eggView: View {
+    @State var egg = false
+    var body: some View {
+        VStack {
+            Button("Egg") {
+                egg.toggle()
+            }
+            FlickTypeTextField(flicktype: _egg, title: "Search...", text: .constant("hi there"))
+        }
     }
 }
 #endif
