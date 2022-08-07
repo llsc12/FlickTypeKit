@@ -26,6 +26,7 @@ public struct FlickTypeTextField: View {
             FlickTypeTextEditor(title, text: $text, mode: .always)
         } else {
             TextField(title, text: $text)
+                .clipShape(Capsule())
         }
     }
 }

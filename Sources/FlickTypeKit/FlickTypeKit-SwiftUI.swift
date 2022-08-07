@@ -56,34 +56,47 @@ public struct FlickTypeTextEditor: View {
     Button(action: action) {
       HStack {
         if text.isEmpty {
-            Text(title).foregroundColor(.init(Color(white: 0.55)))
+            Text(title)
+                .foregroundColor(.init(Color(white: 0.55)))
+                .lineLimit(1)
+                .truncationMode(.head)
         } else {
-          Text(text)
+            Text(text)
+                .lineLimit(1)
+                .truncationMode(.head)
         }
         Spacer()
       }
       .contentShape(Rectangle())
     }
     .buttonStyle(.plain)
-    .padding(.vertical ,14)
+    .padding(.vertical , 14)
     .padding(.horizontal, 10)
     .background {
-        RoundedRectangle(cornerRadius: 11)
+        Capsule()
             .foregroundColor(.init(white: 0.135))
     }
   }
 }
 //
-//@available(watchOS 8.0, *)
-//struct eggPreview: PreviewProvider {
-//    static var previews: some View {
-//        VStack {
-//            FlickTypeTextField(flicktype: true, title: "Search...", text: .constant(""))
-////                .opacity(0.5)
-//            FlickTypeTextField(flicktype: false, title: "Search...", text: .constant(""))
-////                .opacity(0.5)
-//        }
-//    }
-//}
+@available(watchOS 8.0, *)
+struct eggPreview: PreviewProvider {
+    static var previews: some View {
+        ihatethis()
+    }
+}
+
+@available(watchOS 8.0, *)
+struct ihatethis: View {
+    @State var egg = ""
+    var body: some View {
+        VStack {
+            FlickTypeTextField(flicktype: State(initialValue: true), title: "Search...", text: $egg)
+//                .opacity(0.5)
+            FlickTypeTextField(flicktype: State(initialValue: false), title: "Search...", text: $egg)
+//                .opacity(0.5)
+        }
+    }
+}
 
 #endif // os(watchOS)
