@@ -72,11 +72,6 @@ public extension WKInterfaceController {
     // You can only edit existing text with FlickType.
     let existingText = invocation.startingText.isEmpty == false
     var flickTypeMode: FlickType.Mode = existingText ? .always : invocation.flickTypeMode
-    
-    // Don't force FlickType if the app is not known to be installed on the device
-      if flickTypeMode == .always && !FlickType.hasSwitchedFromFlickType {
-        flickTypeMode = .ask
-      }
 
     switch flickTypeMode {
     case .ask:      presentSystemInputController(invocation)
@@ -129,24 +124,7 @@ public extension WKInterfaceController {
         WKExtension.shared().openSystemURL(urlComps.url!)
       }
 
-      if FlickType.hasSwitchedFromFlickType {
-        switchToFlickType(includeStartingText: true)
-      } else {
-        let flickTypeAppStoreURL = URL(string: "https://apps.apple.com/us/app/flicktype-keyboard/id1359485719")!
-        presentAlert(
-          withTitle: "⌨️", // TODO: see if another keyboard emoji shows up better
-          message: "Download “FlickType Keyboard” from the App Store?",
-          preferredStyle: .alert,
-          actions: [
-            .init(title: "Download now", style: .default, handler: { WKExtension.shared().openSystemURL(flickTypeAppStoreURL) }),
-            .init(title: "I already have it", style: .default, handler: {
-              // Redact `startingText` until the first successful app-switch roundtrip, to prevent sensitive content from
-              // ever reaching our server if watchOS implements opening a web browser when our app isn't installed.
-              switchToFlickType(includeStartingText: false)
-            }),
-          ]
-        )
-      }
+      switchToFlickType(includeStartingText: true)
   }
     
 }
@@ -176,10 +154,11 @@ public class FlickType : NSObject {
   
   fileprivate static let typeURL = "https://flicktype.com/type/"
   fileprivate static var returnHandler: (token: String, completion: InvocationCompletionHandler)!
-  fileprivate static var hasSwitchedFromFlickType: Bool {
-    get { UserDefaults.standard.bool(forKey: "FlickType_HAS_SWITCHED_FROM_MAIN_APP") }
-    set { UserDefaults.standard.setValue(newValue, forKey: "FlickType_HAS_SWITCHED_FROM_MAIN_APP")}
-  }
+    // instead, we're going to handle this kind of logic in-app instead.
+//  fileprivate static var hasSwitchedFromFlickType: Bool {
+//    get { UserDefaults.standard.bool(forKey: "FlickType_HAS_SWITCHED_FROM_MAIN_APP") }
+//    set { UserDefaults.standard.setValue(newValue, forKey: "FlickType_HAS_SWITCHED_FROM_MAIN_APP")}
+//  }
   
   // Returns true if it was a FlickType response activity
   public static func handle(_ userActivity: NSUserActivity) -> Bool {
@@ -238,7 +217,6 @@ public class FlickType : NSObject {
       completionType = _completionType
     }
     
-    hasSwitchedFromFlickType = true
     returnHandler = nil
     completionHandler(text, completionType)
     

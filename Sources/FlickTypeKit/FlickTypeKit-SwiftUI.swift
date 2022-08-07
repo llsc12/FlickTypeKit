@@ -10,7 +10,7 @@
 #if os(watchOS)
 import SwiftUI
 
-@available(watchOSApplicationExtension 6.0, *)
+@available(watchOS 8.0, *)
 public struct FlickTypeTextEditor: View {
   
   @Binding
@@ -56,7 +56,7 @@ public struct FlickTypeTextEditor: View {
     Button(action: action) {
       HStack {
         if text.isEmpty {
-          Text(title).foregroundColor(.init(UIColor.gray))
+            Text(title).foregroundColor(.init(Color(white: 0.55)))
         } else {
           Text(text)
         }
@@ -64,7 +64,26 @@ public struct FlickTypeTextEditor: View {
       }
       .contentShape(Rectangle())
     }
+    .buttonStyle(.plain)
+    .padding(.vertical ,14)
+    .padding(.horizontal, 10)
+    .background {
+        RoundedRectangle(cornerRadius: 11)
+            .foregroundColor(.init(white: 0.135))
+    }
   }
+}
+
+@available(watchOS 8.0, *)
+struct eggPreview: PreviewProvider {
+    static var previews: some View {
+        VStack {
+            FlickTypeTextField(flicktype: true, title: "Search...", text: .constant(""))
+//                .opacity(0.5)
+            FlickTypeTextField(flicktype: false, title: "Search...", text: .constant(""))
+//                .opacity(0.5)
+        }
+    }
 }
 
 #endif // os(watchOS)
