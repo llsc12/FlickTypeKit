@@ -11,9 +11,15 @@ import SwiftUI
 @available(watchOS 8.0, *)
 public struct FlickTypeTextField: View {
     
-    var flicktype: Bool
-    var title: LocalizedStringKey
-    @Binding var text: String
+    private var flicktype: Bool
+    private var title: LocalizedStringKey
+    @Binding private var text: String
+    
+    public init(flicktype: Bool, title: LocalizedStringKey, text: Binding<String>) {
+        self.flicktype = flicktype
+        self.title = title
+        self._text = text
+    }
     
     public var body: some View {
         if flicktype {
