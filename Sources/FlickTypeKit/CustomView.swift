@@ -11,13 +11,13 @@ import SwiftUI
 @available(watchOS 8.0, *)
 public struct FlickTypeTextField: View {
     
-    @State private var flicktype: Bool
-    @State private var title: LocalizedStringKey
+    private var flicktype: Bool
+    private var title: LocalizedStringKey
     @Binding private var text: String
     
-    public init(flicktype: State<Bool>, title: State<LocalizedStringKey>, text: Binding<String>) {
-        self._flicktype = flicktype
-        self._title = title
+    public init(flicktype: Bool, title: LocalizedStringKey, text: Binding<String>) {
+        self.flicktype = flicktype
+        self.title = title
         self._text = text
     }
     
