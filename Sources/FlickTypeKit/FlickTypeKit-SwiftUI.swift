@@ -53,29 +53,31 @@ public struct FlickTypeTextEditor: View {
   }
   
   public var body: some View {
-    Button(action: action) {
-      HStack {
-        if text.isEmpty {
-            Text(title)
-                .foregroundColor(.init(Color(white: 0.55)))
-                .lineLimit(1)
-                .truncationMode(.head)
-        } else {
-            Text(text)
-                .lineLimit(1)
-                .truncationMode(.head)
-        }
-        Spacer()
-      }
-      .contentShape(Rectangle())
-    }
-    .buttonStyle(.plain)
-    .padding(.vertical , 14)
-    .padding(.horizontal, 10)
-    .background {
-        RoundedRectangle(cornerRadius: 12, style: .circular)
-            .foregroundColor(.init(white: 0.135))
-    }
+//    Button(action: action) {
+//      HStack {
+//        if text.isEmpty {
+//            Text(title)
+//                .foregroundColor(.init(Color(white: 0.55)))
+//        } else {
+//            Text(text)
+//        }
+//        Spacer()
+//      }
+//      .truncationMode(.tail)
+//      .lineLimit(1)
+//      .contentShape(Rectangle())
+//    }
+//    .buttonStyle(.plain)
+//    .padding(.vertical , 14)
+//    .padding(.horizontal, 10)
+//    .background {
+//        RoundedRectangle(cornerRadius: 12, style: .circular)
+//            .foregroundColor(.init(white: 0.135))
+//    }
+      
+      TextField(title, text: $text)
+          .allowsHitTesting(true)
+          .onTapGesture(perform: action)
   }
 }
 
@@ -91,9 +93,9 @@ struct ihatethis: View {
     @State var egg = ""
     var body: some View {
         VStack {
-            FlickTypeTextField(flicktype: State(initialValue: true), title: "Search...", text: $egg)
+            FlickTypeTextField(flicktype: State(initialValue: true), title: "Search DuckDuckGo...", text: $egg)
 //                .opacity(0.5)
-            FlickTypeTextField(flicktype: State(initialValue: false), title: "Search...", text: $egg)
+            FlickTypeTextField(flicktype: State(initialValue: false), title: "Search DuckDuckGo...", text: $egg)
 //                .opacity(0.5)
         }
     }
