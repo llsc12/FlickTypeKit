@@ -72,9 +72,13 @@ public struct FlickTypeTextEditor: View {
     .buttonStyle(.plain)
     .padding(.vertical , 14)
     .padding(.horizontal, 10)
+    .background {
+        RoundedRectangle(cornerRadius: 12, style: .circular)
+            .foregroundColor(.init(white: 0.135))
+    }
   }
 }
-//
+
 @available(watchOS 8.0, *)
 struct eggPreview: PreviewProvider {
     static var previews: some View {
