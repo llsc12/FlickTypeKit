@@ -72,10 +72,6 @@ public struct FlickTypeTextEditor: View {
     .buttonStyle(.plain)
     .padding(.vertical , 14)
     .padding(.horizontal, 10)
-    .background {
-        Capsule()
-            .foregroundColor(.init(white: 0.135))
-    }
   }
 }
 //
